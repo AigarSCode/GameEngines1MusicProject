@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh64jc03i8f67"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1mxx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4dnex"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kwst0"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3d8xl"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2sgx2"]
+size = Vector2(10, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5o3sf"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_g1mxx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_4dnex")
+
+[node name="Button1" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -3.60208)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Button1"]
+mesh = SubResource("BoxMesh_kwst0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button1"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3d8xl")
+
+[node name="Button2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11763, 0.25, -3.60208)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Button2"]
+mesh = SubResource("BoxMesh_kwst0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button2"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3d8xl")
+
+[node name="Button3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02485, 0.25, -3.58139)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Button3"]
+mesh = SubResource("BoxMesh_kwst0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button3"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3d8xl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_2sgx2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_5o3sf")
