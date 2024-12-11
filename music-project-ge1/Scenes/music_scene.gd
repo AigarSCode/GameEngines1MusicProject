@@ -2,8 +2,9 @@ extends Node3D
 
 var xr_interface: XRInterface
 var button_start_marker:Vector3
+var music_buttons:Array = []
 
-@export var button:PackedScene
+@export var button_scene:PackedScene
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,12 +25,14 @@ func _process(delta: float) -> void:
 func create_music_row() -> void:
 	var pos = button_start_marker
 	for i in range(10):
-		var button_scene = button.instantiate()
+		var music_button = button_scene.instantiate()
+		var music_button_audio:AudioStreamPlayer3D = music_button.get_node("AudioStreamPlayer3D")
 		
-		button_scene.position = pos
-		add_child(button_scene)
+		music_button.position = pos
+		add_child(music_button)
 		
 		pos += Vector3(0.25,0,0)
+		music_buttons.append(music_button)
 
 
 # XR Initialisation code by Bryan Duggan

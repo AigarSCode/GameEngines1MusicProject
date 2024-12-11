@@ -32,7 +32,7 @@ ambient_light_color = Color(0.843184, 0.843184, 0.843184, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_f3egf")
-button = ExtResource("2_u5kpe")
+button_scene = ExtResource("2_u5kpe")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -95,4 +95,4 @@ environment = SubResource("Environment_gprgo")
 transform = Transform3D(0.948677, 0.0560782, -0.311233, 0.316245, -0.168224, 0.933643, 0, -0.984152, -0.177325, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, -1.25)
