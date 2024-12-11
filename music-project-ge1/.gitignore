@@ -3,4 +3,4 @@
 /android/
 
 # Sound samples from the "MGF Audio Sound Pack" (https://99sounds.org/mgf-audio/)
-Sounds/
+Sounds/*
