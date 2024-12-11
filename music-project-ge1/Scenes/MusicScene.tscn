@@ -1,8 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bh64jc03i8f67"]
+[gd_scene load_steps=10 format=3 uid="uid://bh64jc03i8f67"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1mxx"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4dnex"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_uqquk"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojfgb"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o65q2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7mnlo"]
+radius = 0.02
+height = 0.04
 
 [sub_resource type="BoxMesh" id="BoxMesh_kwst0"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -10,7 +20,7 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3d8xl"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2sgx2"]
-size = Vector2(10, 10)
+size = Vector2(25, 25)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5o3sf"]
 
@@ -22,8 +32,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_g1mxx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
-mesh = SubResource("CapsuleMesh_4dnex")
+[node name="XROrigin3D" type="XROrigin3D" parent="Player"]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="Player/XROrigin3D"]
+
+[node name="leftHand" type="XRController3D" parent="Player/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0883667, 0, 0)
+tracker = &"left_hand"
+
+[node name="Area3D" type="Area3D" parent="Player/XROrigin3D/leftHand"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/XROrigin3D/leftHand/Area3D"]
+shape = SubResource("SphereShape3D_uqquk")
+
+[node name="leftMesh" type="MeshInstance3D" parent="Player/XROrigin3D/leftHand"]
+mesh = SubResource("SphereMesh_ojfgb")
+skeleton = NodePath("../Area3D/CollisionShape3D")
+
+[node name="rightHand" type="XRController3D" parent="Player/XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0898047, 0, 0)
+tracker = &"right_hand"
+
+[node name="Area3D" type="Area3D" parent="Player/XROrigin3D/rightHand"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/XROrigin3D/rightHand/Area3D"]
+shape = SubResource("SphereShape3D_o65q2")
+
+[node name="rightMesh" type="MeshInstance3D" parent="Player/XROrigin3D/rightHand"]
+mesh = SubResource("SphereMesh_7mnlo")
 
 [node name="Button1" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -3.60208)
@@ -55,10 +91,11 @@ mesh = SubResource("BoxMesh_kwst0")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_3d8xl")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="GroundPlane" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GroundPlane"]
+visible = false
 mesh = SubResource("PlaneMesh_2sgx2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane"]
 shape = SubResource("WorldBoundaryShape3D_5o3sf")

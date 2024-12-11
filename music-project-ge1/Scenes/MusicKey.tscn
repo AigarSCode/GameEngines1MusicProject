@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://daqxbb7e0jrdo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_26sb2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kid5e"]
+albedo_color = Color(0.215456, 0.388801, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kuthp"]
+material = SubResource("StandardMaterial3D_kid5e")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7uet5"]
+height = 0.1
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tklga"]
+albedo_color = Color(0.913725, 0, 0.0980392, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_my73m"]
+material = SubResource("StandardMaterial3D_tklga")
+top_radius = 0.4
+height = 0.1
+
+[node name="MusicKey" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="Button" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_26sb2")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="Area3D/Button"]
+mesh = SubResource("BoxMesh_kuthp")
+skeleton = NodePath("../..")
+
+[node name="ButtonTop" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530441, 0)
+shape = SubResource("CylinderShape3D_7uet5")
+
+[node name="ButtonTopMesh" type="MeshInstance3D" parent="Area3D/ButtonTop"]
+mesh = SubResource("CylinderMesh_my73m")
