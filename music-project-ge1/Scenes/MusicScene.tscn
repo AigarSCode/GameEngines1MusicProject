@@ -1,4 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bh64jc03i8f67"]
+[gd_scene load_steps=13 format=3 uid="uid://bh64jc03i8f67"]
+
+[ext_resource type="Script" path="res://Scenes/music_scene.gd" id="1_f3egf"]
+[ext_resource type="PackedScene" uid="uid://daqxbb7e0jrdo" path="res://Scenes/MusicKey.tscn" id="2_u5kpe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1mxx"]
 
@@ -24,7 +27,12 @@ size = Vector2(25, 25)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5o3sf"]
 
+[sub_resource type="Environment" id="Environment_gprgo"]
+ambient_light_color = Color(0.843184, 0.843184, 0.843184, 1)
+
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_f3egf")
+button = ExtResource("2_u5kpe")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -61,33 +69,13 @@ shape = SubResource("SphereShape3D_o65q2")
 [node name="rightMesh" type="MeshInstance3D" parent="Player/XROrigin3D/rightHand"]
 mesh = SubResource("SphereMesh_7mnlo")
 
-[node name="Button1" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -3.60208)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Button1"]
-mesh = SubResource("BoxMesh_kwst0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button1"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-shape = SubResource("BoxShape3D_3d8xl")
-
 [node name="Button2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11763, 0.25, -3.60208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.610979, 1, -3.38899)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Button2"]
 mesh = SubResource("BoxMesh_kwst0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Button2"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-shape = SubResource("BoxShape3D_3d8xl")
-
-[node name="Button3" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02485, 0.25, -3.58139)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Button3"]
-mesh = SubResource("BoxMesh_kwst0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button3"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_3d8xl")
 
@@ -99,3 +87,12 @@ mesh = SubResource("PlaneMesh_2sgx2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane"]
 shape = SubResource("WorldBoundaryShape3D_5o3sf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gprgo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.948677, 0.0560782, -0.311233, 0.316245, -0.168224, 0.933643, 0, -0.984152, -0.177325, 0, 0, 0)
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 1, -1.25)

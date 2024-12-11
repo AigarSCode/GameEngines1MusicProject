@@ -24,6 +24,10 @@ XrSimulator="*res://addons/xr-simulator/XRSimulator.tscn"
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[rendering]
+
+renderer/rendering_method="mobile"
+
 [xr]
 
 openxr/enabled=true
