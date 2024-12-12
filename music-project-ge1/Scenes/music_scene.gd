@@ -3,6 +3,8 @@ extends Node3D
 var xr_interface: XRInterface
 var button_start_marker:Vector3
 var music_buttons:Array = []
+var preset1:Array = []
+var preset2:Array = []
 
 @export var button_scene:PackedScene
 

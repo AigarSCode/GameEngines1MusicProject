@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bh64jc03i8f67"]
+[gd_scene load_steps=13 format=3 uid="uid://bh64jc03i8f67"]
 
 [ext_resource type="Script" path="res://Scenes/music_scene.gd" id="1_f3egf"]
 [ext_resource type="PackedScene" uid="uid://daqxbb7e0jrdo" path="res://Scenes/MusicKey.tscn" id="2_u5kpe"]
+[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_xyycl"]
+[ext_resource type="PackedScene" uid="uid://5xlsxyiv5vsr" path="res://Scenes/SliderUI.tscn" id="4_h8fab"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1mxx"]
 
@@ -87,14 +89,6 @@ transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 
 pixel_size = 0.025
 text = "PRESETS"
 
-[node name="Preset2Button" parent="." instance=ExtResource("2_u5kpe")]
-transform = Transform3D(-8.74228e-09, 0.141421, 0.141421, 0, 0.141421, -0.141421, -0.2, -6.18172e-09, -6.18172e-09, -1.5, 1, -0.2)
-
-[node name="Preset2Label" type="Label3D" parent="Preset2Button"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.901)
-pixel_size = 0.025
-text = "2"
-
 [node name="Preset1Button" parent="." instance=ExtResource("2_u5kpe")]
 transform = Transform3D(-8.74228e-09, 0.141421, 0.141421, 0, 0.141421, -0.141421, -0.2, -6.18172e-09, -6.18172e-09, -1.5, 1, 0.2)
 
@@ -103,6 +97,14 @@ transform = Transform3D(1, 0, -3.55271e-15, 0, 0.707107, 0.707107, 0, -0.707107,
 pixel_size = 0.025
 text = "1"
 
+[node name="Preset2Button" parent="." instance=ExtResource("2_u5kpe")]
+transform = Transform3D(-8.74228e-09, 0.141421, 0.141421, 0, 0.141421, -0.141421, -0.2, -6.18172e-09, -6.18172e-09, -1.5, 1, -0.2)
+
+[node name="Preset2Label" type="Label3D" parent="Preset2Button"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.901)
+pixel_size = 0.025
+text = "2"
+
 [node name="ReverbButton" parent="." instance=ExtResource("2_u5kpe")]
 transform = Transform3D(-8.74228e-09, -0.141421, -0.141421, 0, 0.141421, -0.141421, 0.2, -6.18172e-09, -6.18172e-09, 1.5, 1, -0.2)
 
@@ -110,3 +112,11 @@ transform = Transform3D(-8.74228e-09, -0.141421, -0.141421, 0, 0.141421, -0.1414
 transform = Transform3D(1, 0, 3.55271e-15, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.961)
 pixel_size = 0.025
 text = "REVERB"
+
+[node name="Viewport2Din3D" parent="." instance=ExtResource("3_xyycl")]
+transform = Transform3D(-4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 1.53674, 1.76244, -0.231406)
+screen_size = Vector2(1280, 720)
+scene = ExtResource("4_h8fab")
+viewport_size = Vector2(500, 486)
+unshaded = true
+scene_properties_keys = PackedStringArray()
