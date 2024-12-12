@@ -3,8 +3,11 @@ extends Node3D
 var xr_interface: XRInterface
 var button_start_marker:Vector3
 var music_buttons:Array = []
-var preset1:Array = []
-var preset2:Array = []
+
+var preset1_path = "res://Sounds/Papal Bell/"
+var preset_samples1:Array = []
+var preset2_path = "res://Sounds/Perc/"
+var preset_samples2:Array = []
 
 @export var button_scene:PackedScene
 
@@ -14,7 +17,12 @@ func _ready() -> void:
 	init_XR()
 	
 	button_start_marker = $Marker3D.global_position
-	create_music_row()
+	# Read Samples and create buttons
+	read_all_sounds(preset1_path, preset_samples1)
+	create_music_row(preset_samples1)
+	
+	read_all_sounds(preset2_path, preset_samples2)
+	create_music_row(preset_samples2)
 	
 
 
@@ -23,19 +31,37 @@ func _process(delta: float) -> void:
 	pass
 
 
-# Instantiating the row of buttons
-func create_music_row() -> void:
+# Instantiating the row of buttons and setting the sound stream
+func create_music_row(preset: Array) -> void:
 	var pos = button_start_marker
-	for i in range(10):
-		var music_button = button_scene.instantiate()
-		# ADD THE SOUND FILES AND READ THEM INTO EACH AUDIO STREAM PLAYER 
+	
+	for i in range(len(preset)):
+		var music_button = button_scene.instantiate() 
 		var music_button_audio:AudioStreamPlayer3D = music_button.get_node("AudioStreamPlayer3D")
+		music_button_audio.set_stream(load(preset[i]))
 		
 		music_button.position = pos
 		add_child(music_button)
 		
+		# Change pos for next button
 		pos += Vector3(0.25,0,0)
 		music_buttons.append(music_button)
+
+
+# Reading all sounds from a directory into a preset array
+func read_all_sounds(path: String, preset_array: Array) -> void:
+	var dir = DirAccess.open(path)
+	dir.list_dir_begin()
+	if dir != null:
+		var sample = dir.get_next()
+		while sample != "":
+			# Only take wav files and not the wav.import files
+			if sample.ends_with(".wav"):
+				print("Sample: " + sample)
+				preset_array.append(path + sample)
+			sample = dir.get_next()
+	else:
+		print("Failed to read Samples")
 
 
 # XR Initialisation code by Bryan Duggan
