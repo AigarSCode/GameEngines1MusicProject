@@ -26,6 +26,7 @@ func create_music_row() -> void:
 	var pos = button_start_marker
 	for i in range(10):
 		var music_button = button_scene.instantiate()
+		# ADD THE SOUND FILES AND READ THEM INTO EACH AUDIO STREAM PLAYER 
 		var music_button_audio:AudioStreamPlayer3D = music_button.get_node("AudioStreamPlayer3D")
 		
 		music_button.position = pos
