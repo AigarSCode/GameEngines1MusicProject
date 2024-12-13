@@ -28,18 +28,23 @@ func _physics_process(delta: float) -> void:
 		trail.scale = trail_scale.lerp(Vector3.ZERO, elapsed_time)
 		
 		# Reduce opacity while moving to target
-		# TODO Get meshinstace3d from trail, get its mesh and then reduce the opacity
+		var mesh = trail.get_node("TrailMesh")
+		var material = mesh.get_surface_override_material(1)
+		var color = material.albedo_color
+		material.albedo_color = Color(color.r, color.g, color.b, (color.a - elapsed_time))
 		
 	else:
 		# Once trail reaches target it is removed
+		elapsed_time = 0.0
 		trail_active = false
 		trail.queue_free()
 
 
 # Functionality for when a collision occurs between the hand (Area3D) and this Area3D
 func _on_area_entered(area: Area3D) -> void:
-	# Play sound
-	$"../AudioStreamPlayer3D".play()
+	# First check if this button has a sound stream
+	if $"../AudioStreamPlayer3D".has_stream_playback():
+		$"../AudioStreamPlayer3D".play()
 	
 	# Create trail effect to the Marker3D (target)
 	trail = trail_object.instantiate()
