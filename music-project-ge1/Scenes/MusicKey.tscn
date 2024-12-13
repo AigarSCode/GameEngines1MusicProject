@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://daqxbb7e0jrdo"]
+[gd_scene load_steps=9 format=3 uid="uid://daqxbb7e0jrdo"]
 
 [ext_resource type="Script" path="res://Scenes/music_key.gd" id="1_0fpym"]
+[ext_resource type="PackedScene" uid="uid://cvsplt0j0k0yy" path="res://Scenes/Trail.tscn" id="2_4u3j7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_26sb2"]
 
@@ -27,6 +28,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421
 
 [node name="Area3D" type="Area3D" parent="."]
 script = ExtResource("1_0fpym")
+trail_object = ExtResource("2_4u3j7")
 
 [node name="Button" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_26sb2")
