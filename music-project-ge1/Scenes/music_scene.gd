@@ -25,8 +25,7 @@ func _ready() -> void:
 	read_all_sounds(preset1_path, preset_samples1)
 	read_all_sounds(preset2_path, preset_samples2)
 	
-	create_music_row(preset_samples1)
-	#create_music_row(preset_samples2)
+	load_preset("preset1")
 	
 	# Create signals for the other buttons
 	var preset1 = $Preset1Button.get_node("Area3D")
@@ -35,8 +34,8 @@ func _ready() -> void:
 	var preset2 = $Preset2Button.get_node("Area3D")
 	preset2.type = "preset2"
 	preset2.connect("presetPressed", Callable(self, "load_preset"))
-	#var reverb = $ReverbButton.get_node("Area3D")
-	#reverb.type = "reverb"
+	var reverb = $ReverbButton.get_node("Area3D")
+	reverb.type = "reverb"
 	#reverb.connect("presetPressed", Callable(self, "load_preset"))
 	
 
@@ -89,9 +88,10 @@ func load_preset(preset: String):
 # Functionality for unloading presets
 func unload_preset():
 	# Cycle through samples and remove them
-	for button in music_buttons:
-		button.queue_free()
-	music_buttons.clear()
+	if !music_buttons.is_empty():
+		for button in music_buttons:
+			button.queue_free()
+		music_buttons.clear()
 
 
 # XR Initialisation code by Bryan Duggan

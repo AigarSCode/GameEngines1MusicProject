@@ -7,6 +7,11 @@ var trail:Node
 var type:String
 @export var trail_object:PackedScene
 
+# Audio Effects
+var reverb:bool = false
+var reverb_effect:AudioEffectReverb
+var audio_bus:int
+
 signal presetPressed
 
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +19,7 @@ func _ready() -> void:
 	target = $"../Marker3D".global_position
 	trail_active = false
 	elapsed_time = 0.0
+	#reverb = false
 
 
 func _physics_process(delta: float) -> void:
@@ -37,8 +43,8 @@ func _physics_process(delta: float) -> void:
 	elif trail_active:
 		# Once trail reaches target it is removed
 		elapsed_time = 0.0
-		trail_active = false
 		trail.queue_free()
+		trail_active = false
 
 
 # Functionality for when a collision occurs between the hand (Area3D) and this Area3D
@@ -47,8 +53,25 @@ func _on_area_entered(area: Area3D) -> void:
 	print("Collided with: ", area.get_class())
 	print("Collided with: ", area.get_path())
 	print("Collided with: ", area.global_position)
+	print("before if Reverb is: ", reverb)
+	print("before if type is: ", type)
+	
+	if type == "reverb":
+		if !reverb:
+			$"../AudioStreamPlayer3D".bus = "ReverbBus"
+			reverb = true
+		else:
+			$"../AudioStreamPlayer3D".bus = "Master"
+			reverb = false
+		print("Changed Reverb to: ", reverb)
+		
+	print("after ifReverb is: ", reverb)
 	# First check if this button has a sound stream
 	if $"../AudioStreamPlayer3D".get_stream() != null:
+		#print("before enable Reverb is: ", reverb)
+		#enable_reverb()
+		#print("after enableReverb is: ", reverb)
+		print("After Bus: ", $"../AudioStreamPlayer3D".bus)
 		$"../AudioStreamPlayer3D".play()
 		
 		# Only create a new trail after the previous one has been removed
@@ -71,5 +94,17 @@ func _on_area_entered(area: Area3D) -> void:
 		emit_signal("presetPressed", "preset1")
 	elif type == "preset2":
 		emit_signal("presetPressed", "preset2")
-	elif type == "reverb":
-		emit_signal("presetPressed", "reverb")
+		
+	print("after all Reverb is: ", reverb)
+
+
+func enable_reverb():
+	print("inside enable Reverb is: ", reverb)
+	$"../AudioStreamPlayer3D".bus = "ReverbBus"
+	if reverb == true:
+		$"../AudioStreamPlayer3D".bus = "ReverbBus"
+		print("Reverb Bus")
+	else:
+		$"../AudioStreamPlayer3D".bus = "Master"
+		print("Master Bus")
+	print("inside enable after ifelse Reverb is: ", reverb)
