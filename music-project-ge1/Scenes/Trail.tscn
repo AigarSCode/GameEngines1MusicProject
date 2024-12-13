@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvsplt0j0k0yy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwy2d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n5y3j"]
+material = SubResource("StandardMaterial3D_nwy2d")
+size = Vector3(0.95, 0.95, 0.95)
+
+[node name="Trail" type="Node3D"]
+
+[node name="TrailMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_n5y3j")
