@@ -27,6 +27,7 @@ height = 0.1
 transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
+monitorable = false
 script = ExtResource("1_0fpym")
 trail_object = ExtResource("2_4u3j7")
 
