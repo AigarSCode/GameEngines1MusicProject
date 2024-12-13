@@ -4,7 +4,10 @@ var target:Vector3
 var elapsed_time:float
 var trail_active:bool
 var trail:Node
+var type:String
 @export var trail_object:PackedScene
+
+signal presetPressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,10 +15,6 @@ func _ready() -> void:
 	trail_active = false
 	elapsed_time = 0.0
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func _physics_process(delta: float) -> void:
 	# Lerp the trail to the target while decreasing in size and opacity
@@ -52,17 +51,25 @@ func _on_area_entered(area: Area3D) -> void:
 	if $"../AudioStreamPlayer3D".get_stream() != null:
 		$"../AudioStreamPlayer3D".play()
 		
-	if trail == null:
-		# Create trail effect to the Marker3D (target)
-		trail = trail_object.instantiate()
-		trail.global_transform = self.global_transform
-		
-		# Generate and set a random color
-		var trailMesh:MeshInstance3D = trail.get_node("TrailMesh")
-		var material = StandardMaterial3D.new()
-		material.albedo_color = Color(randf(), randf(), randf())
-		trailMesh.set_surface_override_material(0, material)
-		
-		# Enable the trail
-		trail_active = true
-		add_child(trail)
+		# Only create a new trail after the previous one has been removed
+		if trail == null:
+			print("Inside trail")
+			# Create trail effect to the Marker3D (target)
+			trail = trail_object.instantiate()
+			trail.global_transform = self.global_transform
+			
+			# Generate and set a random color
+			var trailMesh:MeshInstance3D = trail.get_node("TrailMesh")
+			var material = StandardMaterial3D.new()
+			material.albedo_color = Color(randf(), randf(), randf())
+			trailMesh.set_surface_override_material(0, material)
+			
+			# Enable the trail
+			trail_active = true
+			add_child(trail)
+	elif type == "preset1":
+		emit_signal("presetPressed", "preset1")
+	elif type == "preset2":
+		emit_signal("presetPressed", "preset2")
+	elif type == "reverb":
+		emit_signal("presetPressed", "reverb")

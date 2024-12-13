@@ -6,8 +6,11 @@ var music_buttons:Array = []
 
 var preset1_path = "res://Sounds/Papal Bell/"
 var preset_samples1:Array = []
+
 var preset2_path = "res://Sounds/Perc/"
 var preset_samples2:Array = []
+
+var active_preset:String = "preset1"
 
 @export var button_scene:PackedScene
 
@@ -17,18 +20,25 @@ func _ready() -> void:
 	init_XR()
 	
 	button_start_marker = $Marker3D.global_position
-	# Read Samples and create buttons
+	
+	# Read Samples and create starting preset
 	read_all_sounds(preset1_path, preset_samples1)
-	create_music_row(preset_samples1)
-	
 	read_all_sounds(preset2_path, preset_samples2)
-	create_music_row(preset_samples2)
 	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	create_music_row(preset_samples1)
+	#create_music_row(preset_samples2)
+	
+	# Create signals for the other buttons
+	var preset1 = $Preset1Button.get_node("Area3D")
+	preset1.type = "preset1"
+	preset1.connect("presetPressed", Callable(self, "load_preset"))
+	var preset2 = $Preset2Button.get_node("Area3D")
+	preset2.type = "preset2"
+	preset2.connect("presetPressed", Callable(self, "load_preset"))
+	#var reverb = $ReverbButton.get_node("Area3D")
+	#reverb.type = "reverb"
+	#reverb.connect("presetPressed", Callable(self, "load_preset"))
+	
 
 
 # Instantiating the row of buttons and setting the sound stream
@@ -62,6 +72,26 @@ func read_all_sounds(path: String, preset_array: Array) -> void:
 			sample = dir.get_next()
 	else:
 		print("Failed to read Samples")
+
+
+# Functionality for loading presets
+func load_preset(preset: String):
+	if preset == "preset1":
+		print("Loading preset 1")
+		unload_preset()
+		create_music_row(preset_samples1)
+	if preset == "preset2":
+		print("Loading preset 2")
+		unload_preset()
+		create_music_row(preset_samples2)
+
+
+# Functionality for unloading presets
+func unload_preset():
+	# Cycle through samples and remove them
+	for button in music_buttons:
+		button.queue_free()
+	music_buttons.clear()
 
 
 # XR Initialisation code by Bryan Duggan
