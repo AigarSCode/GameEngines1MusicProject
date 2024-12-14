@@ -1,25 +1,30 @@
 extends Area3D
 
 var target:Vector3
-var elapsed_time:float
-var trail_active:bool
+var elapsed_time:float = 0.0
+var trail_active:bool = false
 var trail:Node
 var type:String
 @export var trail_object:PackedScene
 
+# Button Colours
+var buttonTopMesh:MeshInstance3D
+var selected:bool = false
+var selectedColor:Color = Color8(0, 151, 23)
+var unselectedColor:Color = Color8(233, 0, 25)
+
 # Audio Effects
 var reverb:bool = false
-var reverb_effect:AudioEffectReverb
-var audio_bus:int
 
+# Signals
 signal presetPressed
 signal reverbPressed
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	target = $"../Marker3D".global_position
-	trail_active = false
-	elapsed_time = 0.0
+	buttonTopMesh = $ButtonTop/ButtonTopMesh
 
 
 func _physics_process(delta: float) -> void:
@@ -74,5 +79,20 @@ func _on_area_entered(area: Area3D) -> void:
 	elif type == "preset2":
 		emit_signal("presetPressed", "preset2")
 	elif type == "reverb":
-		print("Inside Reverb emit")
+		selected = !selected
+		
+		# Change the color when selected
+		change_color()
+		
 		emit_signal("reverbPressed")
+
+
+# Toggle button color for reverb
+func change_color():
+	var material = StandardMaterial3D.new()
+	buttonTopMesh.set_surface_override_material(0, material)
+	
+	if selected:
+		material.albedo_color = selectedColor
+	else:
+		material.albedo_color = unselectedColor
