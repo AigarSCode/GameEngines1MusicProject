@@ -3,6 +3,7 @@ extends Node3D
 var xr_interface: XRInterface
 var button_start_marker:Vector3
 var music_buttons:Array = []
+var reverb:bool = false
 
 var preset1_path = "res://Sounds/Papal Bell/"
 var preset_samples1:Array = []
@@ -34,9 +35,9 @@ func _ready() -> void:
 	var preset2 = $Preset2Button.get_node("Area3D")
 	preset2.type = "preset2"
 	preset2.connect("presetPressed", Callable(self, "load_preset"))
-	var reverb = $ReverbButton.get_node("Area3D")
-	reverb.type = "reverb"
-	#reverb.connect("presetPressed", Callable(self, "load_preset"))
+	var reverbButton = $ReverbButton.get_node("Area3D")
+	reverbButton.type = "reverb"
+	reverbButton.connect("reverbPressed", Callable(self, "enable_reverb"))
 	
 
 
@@ -83,6 +84,8 @@ func load_preset(preset: String):
 		print("Loading preset 2")
 		unload_preset()
 		create_music_row(preset_samples2)
+	# Change Audio Bus if needed
+	change_reverb_on_players()
 
 
 # Functionality for unloading presets
@@ -94,7 +97,29 @@ func unload_preset():
 		music_buttons.clear()
 
 
-# XR Initialisation code by Bryan Duggan
+# Enable reverb bus when Reverb button is pressed
+func enable_reverb():
+	reverb = !reverb
+	change_reverb_on_players()
+
+
+# This changes the audio bus of the music keys to either Master (Unmodified audio) and ReverbBus (Reverb Effect)
+# Is also called when the user selects another preset, done to change audio bus depending on whether the reverb button is pressed
+func change_reverb_on_players():
+	if reverb:
+		if music_buttons[0].get_node("AudioStreamPlayer3D").bus != "ReverbBus":
+			for key in music_buttons:
+				var asp = key.get_node("AudioStreamPlayer3D")
+				asp.bus = "ReverbBus"
+	else:
+		if music_buttons[0].get_node("AudioStreamPlayer3D").bus != "Master":
+			for key in music_buttons:
+				var asp = key.get_node("AudioStreamPlayer3D")
+				asp.bus = "Master"
+
+
+# XR Initialisation code by Bryan Duggan 
+# https://github.com/skooter500/GE1-2024/blob/main/games-engines-2024/music_toys.gd
 func init_XR() -> void:
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
