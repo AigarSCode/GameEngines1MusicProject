@@ -26,15 +26,21 @@ func _ready() -> void:
 	read_all_sounds(preset1_path, preset_samples1)
 	read_all_sounds(preset2_path, preset_samples2)
 	
+	# Load preset 1 as the starting preset
 	load_preset("preset1")
 	
 	# Create signals for the other buttons
-	var preset1 = $Preset1Button.get_node("Area3D")
-	preset1.type = "preset1"
-	preset1.connect("presetPressed", Callable(self, "load_preset"))
-	var preset2 = $Preset2Button.get_node("Area3D")
-	preset2.type = "preset2"
-	preset2.connect("presetPressed", Callable(self, "load_preset"))
+	var preset1Button = $Preset1Button.get_node("Area3D")
+	preset1Button.type = "preset1"
+	# Set the default color
+	preset1Button.selected = true
+	preset1Button.change_color()
+	preset1Button.connect("presetPressed", Callable(self, "load_preset"))
+	
+	var preset2Button = $Preset2Button.get_node("Area3D")
+	preset2Button.type = "preset2"
+	preset2Button.connect("presetPressed", Callable(self, "load_preset"))
+	
 	var reverbButton = $ReverbButton.get_node("Area3D")
 	reverbButton.type = "reverb"
 	reverbButton.connect("reverbPressed", Callable(self, "enable_reverb"))
@@ -75,15 +81,39 @@ func read_all_sounds(path: String, preset_array: Array) -> void:
 
 
 # Functionality for loading presets
+# As well as changing color to indicate which preset is selected
 func load_preset(preset: String):
+	var preset1Button:Area3D = $Preset1Button.get_node("Area3D")
+	var preset2Button:Area3D = $Preset2Button.get_node("Area3D")
+	
 	if preset == "preset1":
-		print("Loading preset 1")
+		# Change Color
+		if !preset1Button.selected:
+			preset1Button.selected = !(preset1Button.selected)
+			preset1Button.change_color()
+		
+			if preset2Button.selected:
+				preset2Button.selected = !(preset2Button.selected)
+				preset2Button.change_color()
+		
+		# Load Preset
 		unload_preset()
 		create_music_row(preset_samples1)
+		
 	if preset == "preset2":
-		print("Loading preset 2")
+		# Change Color
+		if !preset2Button.selected:
+			preset2Button.selected = !(preset2Button.selected)
+			preset2Button.change_color()
+		
+			if preset1Button.selected:
+				preset1Button.selected = !(preset1Button.selected)
+				preset1Button.change_color()
+		
+		# Load Preset
 		unload_preset()
 		create_music_row(preset_samples2)
+	
 	# Change Audio Bus if needed
 	change_reverb_on_players()
 
