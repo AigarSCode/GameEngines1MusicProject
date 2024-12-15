@@ -87,15 +87,15 @@ environment = SubResource("Environment_gprgo")
 transform = Transform3D(0.948677, 0.0560782, -0.311233, 0.316245, -0.168224, 0.933643, 0, -0.984152, -0.177325, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -0.55)
 
 [node name="PresetLabel" type="Label3D" parent="."]
-transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, -1.5, 1.5, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.512, 2.75, -1)
 pixel_size = 0.025
 text = "PRESETS"
 
 [node name="Preset1Button" parent="." instance=ExtResource("2_u5kpe")]
-transform = Transform3D(-8.74228e-09, 0.141421, 0.141421, 0, 0.141421, -0.141421, -0.2, -6.18172e-09, -6.18172e-09, -1.5, 2, 0.2)
+transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421, -0.715, 2.25, -1)
 
 [node name="Preset1Label" type="Label3D" parent="Preset1Button"]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.896)
@@ -103,7 +103,7 @@ pixel_size = 0.025
 text = "1"
 
 [node name="Preset2Button" parent="." instance=ExtResource("2_u5kpe")]
-transform = Transform3D(-8.74228e-09, 0.141421, 0.141421, 0, 0.141421, -0.141421, -0.2, -6.18172e-09, -6.18172e-09, -1.5, 2, -0.2)
+transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421, -0.317282, 2.25, -1)
 
 [node name="Preset2Label" type="Label3D" parent="Preset2Button"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.901)
@@ -111,7 +111,7 @@ pixel_size = 0.025
 text = "2"
 
 [node name="ReverbButton" parent="." instance=ExtResource("2_u5kpe")]
-transform = Transform3D(-8.74228e-09, -0.141421, -0.141421, 0, 0.141421, -0.141421, 0.2, -6.18172e-09, -6.18172e-09, 1.5, 2, -0.2)
+transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421, 0.5, 2.25, -1)
 
 [node name="ReverbLabel" type="Label3D" parent="ReverbButton"]
 transform = Transform3D(1, 0, 3.55271e-15, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.961)
