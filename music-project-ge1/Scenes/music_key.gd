@@ -87,7 +87,7 @@ func _on_area_entered(area: Area3D) -> void:
 		emit_signal("reverbPressed")
 
 
-# Toggle button color for reverb
+# Toggle button color for reverb and presets
 func change_color():
 	var material = StandardMaterial3D.new()
 	buttonTopMesh.set_surface_override_material(0, material)

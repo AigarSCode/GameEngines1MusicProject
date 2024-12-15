@@ -5,12 +5,14 @@ var button_start_marker:Vector3
 var music_buttons:Array = []
 var reverb:bool = false
 
-var preset1_path = "res://Sounds/Papal Bell/"
+# Preset Paths and Sound Sample Arrays
+var preset1_path = "res://Sounds/Snare/"
 var preset_samples1:Array = []
 
-var preset2_path = "res://Sounds/Perc/"
+var preset2_path = "res://Sounds/Random/"
 var preset_samples2:Array = []
 
+# Keeps current Preset value
 var active_preset:String = "preset1"
 
 @export var button_scene:PackedScene
@@ -20,6 +22,7 @@ var active_preset:String = "preset1"
 func _ready() -> void:
 	init_XR()
 	
+	# Start marker for the row of music keys
 	button_start_marker = $Marker3D.global_position
 	
 	# Read Samples and create starting preset
@@ -51,6 +54,7 @@ func _ready() -> void:
 func create_music_row(preset: Array) -> void:
 	var pos = button_start_marker
 	
+	# Cycle through each sound sample and make a button for it
 	for i in range(len(preset)):
 		var music_button = button_scene.instantiate() 
 		var music_button_audio:AudioStreamPlayer3D = music_button.get_node("AudioStreamPlayer3D")
@@ -73,7 +77,7 @@ func read_all_sounds(path: String, preset_array: Array) -> void:
 		while sample != "":
 			# Only take wav files and not the wav.import files
 			if sample.ends_with(".wav"):
-				print("Sample: " + sample)
+				print("Sample loaded: " + sample)
 				preset_array.append(path + sample)
 			sample = dir.get_next()
 	else:
@@ -87,7 +91,7 @@ func load_preset(preset: String):
 	var preset2Button:Area3D = $Preset2Button.get_node("Area3D")
 	
 	if preset == "preset1":
-		# Change Color
+		# Change Color with a flip-flop mechanism
 		if !preset1Button.selected:
 			preset1Button.selected = !(preset1Button.selected)
 			preset1Button.change_color()

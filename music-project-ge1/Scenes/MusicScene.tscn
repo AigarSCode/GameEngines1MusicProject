@@ -1,9 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh64jc03i8f67"]
+[gd_scene load_steps=11 format=3 uid="uid://bh64jc03i8f67"]
 
 [ext_resource type="Script" path="res://Scenes/music_scene.gd" id="1_f3egf"]
 [ext_resource type="PackedScene" uid="uid://daqxbb7e0jrdo" path="res://Scenes/MusicKey.tscn" id="2_u5kpe"]
-[ext_resource type="PackedScene" uid="uid://clujaf3u776a3" path="res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn" id="3_xyycl"]
-[ext_resource type="PackedScene" uid="uid://5xlsxyiv5vsr" path="res://Scenes/SliderUI.tscn" id="4_h8fab"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g1mxx"]
 
@@ -87,7 +85,7 @@ environment = SubResource("Environment_gprgo")
 transform = Transform3D(0.948677, 0.0560782, -0.311233, 0.316245, -0.168224, 0.933643, 0, -0.984152, -0.177325, 0, 0, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -0.55)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 2, -0.55)
 
 [node name="PresetLabel" type="Label3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.512, 2.75, -1)
@@ -117,11 +115,3 @@ transform = Transform3D(0.2, 0, 0, 0, 0.141421, -0.141421, 0, 0.141421, 0.141421
 transform = Transform3D(1, 0, 3.55271e-15, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -0.961)
 pixel_size = 0.025
 text = "REVERB"
-
-[node name="Viewport2Din3D" parent="." instance=ExtResource("3_xyycl")]
-transform = Transform3D(-4.37114e-11, 0, -0.001, 0, 0.001, 0, 0.001, 0, -4.37114e-11, 1.53674, 2.8852, -0.231406)
-screen_size = Vector2(1280, 720)
-scene = ExtResource("4_h8fab")
-viewport_size = Vector2(500, 486)
-unshaded = true
-scene_properties_keys = PackedStringArray()
